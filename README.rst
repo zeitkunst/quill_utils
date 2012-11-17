@@ -30,6 +30,8 @@ The script doesn't deal with line art.
 TODO
 ====
 
+* Better error handling
+
 * Deal with pen colors
 
 * Deal with aspect ratios
