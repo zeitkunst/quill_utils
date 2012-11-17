@@ -19,6 +19,8 @@ This is take a given Quill file (with .quill extension), create a new directory 
 Caveats
 =======
 
+This requires the python-cairo bindings to be installed.
+
 This was done quickly and does not have as much error checking as there should be.
 
 The script doesn't currently deal with earlier Quill formats, nor does it change the color of the pen.
