@@ -23,7 +23,7 @@ This requires the python-cairo bindings to be installed.
 
 This was done quickly and does not have as much error checking as there should be.
 
-The script doesn't currently deal with earlier Quill formats, nor does it change the color of the pen.
+The script doesn't currently deal with earlier Quill formats.
 
 The script doesn't deal with line art.
 
@@ -34,11 +34,11 @@ TODO
 
 * Incorporate tags into SVG metadata
 
-* Deal with pen colors
-
 * Deal with aspect ratios
 
 * Deal with line art
+
+* Deal with images
 
 * Deal with earlier quill formats
 

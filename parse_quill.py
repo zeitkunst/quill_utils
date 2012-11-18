@@ -34,6 +34,10 @@ import cairo
 __version__ = 0.01
 
 class QuillPage(object):
+    # Purely arbitrary
+    # A line-width of 0.003 gives a good visual approximation to Quill's pen thickness of 5
+    pen_scale_factor = float(5.0/0.003)
+
     def __init__(self, page_path = None, page_number = 1, output_dir = None):
         self.page_path = page_path
         self.page_number = page_number
@@ -95,8 +99,12 @@ class QuillPage(object):
             for stroke in xrange(self.nstrokes[0]):
                 sversion = struct.unpack(">i", fp.read(4))
                 pen_color = struct.unpack(">i", fp.read(4))
+                red = (pen_color[0] >> 16) & 0xFF
+                green = (pen_color[0] >> 8) & 0xFF
+                blue = pen_color[0] & 0xFF
+                cr.set_source_rgb(float(red/255.0), float(green/255.0), float(blue/255.0))
                 pen_thickness = struct.unpack(">i", fp.read(4))
-                print pen_thickness
+                pen_thickness_factor = float(pen_thickness[0])/self.pen_scale_factor
                 toolint = struct.unpack(">i", fp.read(4))
                 N = struct.unpack(">i", fp.read(4))
             
@@ -108,7 +116,7 @@ class QuillPage(object):
                     points.append((x[0], y[0], p[0]))
                 
                 for point in xrange(len(points) - 1):
-                    cr.set_line_width(0.003 * ((points[point][2] + points[point+1][2])/2))
+                    cr.set_line_width(pen_thickness_factor * ((points[point][2] + points[point+1][2])/2))
                     cr.move_to(points[point][0], points[point][1])
                     cr.line_to(points[point + 1][0], points[point + 1][1])
                     cr.stroke()
